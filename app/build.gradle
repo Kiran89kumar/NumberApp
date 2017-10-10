@@ -35,7 +35,6 @@ dependencies {
     compile libs.supportv13
     compile libs.supportv4
     compile libs.appcompatv7
-    compile libs.recyclerView
     compile libs.constraintLayout
     compile(libs.design) {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
@@ -52,9 +51,6 @@ dependencies {
 
     compile libs.dagger
     compile libs.retrofit
-    compile libs.gsonConverter
-    compile libs.picasso
-    compile libs.picassoOkHttp3
 
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
