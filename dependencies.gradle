@@ -1,0 +1,53 @@
+ext{
+
+    androidBuildToolsVersion = "25.0.3"
+    androidMinSdkVersion = 19
+    androidTargetSdkVersion = 25
+    androidCompileSdkVersion = 25
+
+    def libver = [
+            dagger              : '2.7',
+            javaxAnnotation     : '1.0',
+            picasso             : '2.5.2',
+            picassoOkHttp3      : '1.1.0',
+            retrofit            : '2.3.0',
+            rxJava              : '1.2.5',
+            rxAndroid           : '1.2.1',
+            OkHTTPLog           : '3.2.0',
+            googlePlay          : '11.0.2',
+            androidSupport      : '25.0.1',
+            constraintLayout    : '1.0.0',
+
+            junit               : '4.12'
+    ]
+
+
+    libs = [
+            daggerCompiler       : "com.google.dagger:dagger-compiler:${libver.dagger}",
+            dagger               : "com.google.dagger:dagger:${libver.dagger}",
+            javaxAnnotation      : "javax.annotation:jsr250-api:${libver.javaxAnnotation}",
+            picasso              : "com.squareup.picasso:picasso:${libver.picasso}",
+            picassoOkHttp3       : "com.jakewharton.picasso:picasso2-okhttp3-downloader:${libver.picassoOkHttp3}",
+            retrofit             : "com.squareup.retrofit2:retrofit:${libver.retrofit}",
+            retrofitRxJavaAdapter: "com.squareup.retrofit2:adapter-rxjava:${libver.retrofit}",
+            rxJava               : "io.reactivex:rxjava:${libver.rxJava}",
+            rxAndroid            : "io.reactivex:rxandroid:${libver.rxAndroid}",
+            rxBindingAppcompact  : "com.jakewharton.rxbinding:rxbinding-appcompat-v7:${libver.rxBindingAppcompact}",
+            gsonConverter        : "com.squareup.retrofit2:converter-gson:${libver.retrofit}",
+            OkHTTPLog            : "com.squareup.okhttp3:logging-interceptor:${libver.OkHTTPLog}",
+            googlePlay           : "com.google.android.gms:play-services-gcm:${libver.googlePlay}",
+            supportAnnotations   : "com.android.support:support-annotations:${libver.androidSupport}",
+            design               : "com.android.support:design:${libver.androidSupport}",
+            recyclerView         : "com.android.support:recyclerview-v7:${libver.androidSupport}",
+            cardview             : "com.android.support:cardview-v7:${libver.androidSupport}",
+            supportv4            : "com.android.support:support-v4:${libver.androidSupport}",
+            appcompatv7          : "com.android.support:appcompat-v7:${libver.androidSupport}",
+            supportv13           : "com.android.support:support-v13:${libver.androidSupport}",
+            vectorSupport        : "com.android.support:support-vector-drawable:${libver.androidSupport}",
+            preferenceV7         : "com.android.support:preference-v7:${libver.androidSupport}",
+            preferenceV14        : "com.android.support:preference-v14:${libver.androidSupport}",
+            constraintLayout     : "com.android.support.constraint:constraint-layout:${libver.constraintLayout}",
+
+            junit                : "junit:junit:${libver.junit}"
+    ]
+}

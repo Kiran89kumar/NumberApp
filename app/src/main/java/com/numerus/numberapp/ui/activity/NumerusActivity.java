@@ -1,7 +1,9 @@
-package com.numerus.numberapp;
+package com.numerus.numberapp.ui.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.numerus.numberapp.R;
 
 public class NumerusActivity extends AppCompatActivity {
 

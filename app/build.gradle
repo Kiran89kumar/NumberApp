@@ -1,14 +1,22 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+
+    def globals = rootProject.extensions.getByName("ext")
+    compileSdkVersion globals.getAt("androidCompileSdkVersion")
+    buildToolsVersion globals.getAt("androidBuildToolsVersion")
+    def verName = globals.getAt("androidVersionName")
+
     defaultConfig {
-        applicationId "com.numerus.numberapp"
-        minSdkVersion 15
-        targetSdkVersion 26
+
+        resConfigs "en"
+        vectorDrawables.useSupportLibrary = true
+        applicationId globals.getAt("androidApplicationId")
+        minSdkVersion globals.getAt("androidMinSdkVersion")
+        targetSdkVersion globals.getAt("androidTargetSdkVersion")
         versionCode 1
-        versionName "1.0"
+        versionName verName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -20,11 +28,38 @@ android {
 }
 
 dependencies {
+    def libs = rootProject.ext.libs
+    provided libs.javaxAnnotation
+    apt libs.daggerCompiler
+
+    compile libs.supportv13
+    compile libs.supportv4
+    compile libs.appcompatv7
+    compile libs.recyclerView
+    compile libs.constraintLayout
+    compile(libs.design) {
+        exclude group: 'com.android.support', module: 'recyclerview-v7'
+    }
+
+    compile libs.rxJava
+    compile (libs.rxAndroid) {
+        exclude group: 'io.reactivex', module: 'rxjava'
+    }
+    compile(libs.retrofitRxJavaAdapter) {
+        exclude group: 'io.reactivex', module: 'rxjava'
+        exclude group: 'com.squareup.retrofit2', module: 'retrofit'
+    }
+
+    compile libs.dagger
+    compile libs.retrofit
+    compile libs.gsonConverter
+    compile libs.picasso
+    compile libs.picassoOkHttp3
+
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
     testCompile 'junit:junit:4.12'
 }
