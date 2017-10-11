@@ -18,10 +18,10 @@ import butterknife.Unbinder;
  * Created by kiran.kumar on 10/11/17.
  */
 
-public abstract class BoringActivity<F extends ActivityFlavor, C extends InjectableComponent>
+public abstract class BorrowingActivity<F extends ActivityFlavor, C extends InjectableComponent>
         extends BaseActivity<C> {
 
-    protected BoringActivity(F flavor){
+    protected BorrowingActivity(F flavor){
         this.flavor = flavor;
     }
 
@@ -38,7 +38,16 @@ public abstract class BoringActivity<F extends ActivityFlavor, C extends Injecta
         if (args != null) {
             readBundle(args);
         }
+        if (toolbar != null) {
+            setUpToolbar(toolbar);
+        }
         enhanceLayout();
+    }
+
+    public void setUpToolbar(@NonNull Toolbar toolbar) {
+        this.toolbar = toolbar;
+        toolbar.setTitle(flavor.getTitle(this));
+        setSupportActionBar(toolbar);
     }
 
     @CallSuper
@@ -46,11 +55,20 @@ public abstract class BoringActivity<F extends ActivityFlavor, C extends Injecta
 
     }
 
+    @Override
+    @CallSuper
+    protected void onDestroy() {
+        unbinder.unbind();
+        super.onDestroy();
+    }
+
     protected abstract void readBundle(@NonNull Bundle args);
 
     protected final F getFlavor() {
         return flavor;
     }
+
+    protected final String TAG = getClass().getSimpleName();
 
     @Nullable // Since for some activities it is from fragment TODO
     @BindView(R.id.toolbar)

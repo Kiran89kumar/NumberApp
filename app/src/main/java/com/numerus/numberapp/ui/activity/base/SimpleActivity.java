@@ -14,7 +14,7 @@ import com.numerus.numberapp.ui.helper.SimpleActivityFlavor;
  * Created by kiran.kumar on 10/11/17.
  */
 
-public abstract class SimpleActivity<C extends InjectableComponent> extends BoringActivity<SimpleActivityFlavor, C>{
+public abstract class SimpleActivity<C extends InjectableComponent> extends BorrowingActivity<SimpleActivityFlavor, C> {
 
     protected SimpleActivity(SimpleActivityFlavor flavor) {
         super(flavor);

@@ -1,11 +1,3 @@
-<!--
-  ~ Copyright (C) 21/4/2016 Cricbuzz.com
-  ~ All rights reserved.
-  ~
-  ~ http://www.cricbuzz.com
-  ~ @author: kiran.kumar
-  -->
-
 <android.support.design.widget.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/appbar"

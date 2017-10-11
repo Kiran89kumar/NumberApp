@@ -1,14 +1,20 @@
 package com.numerus.numberapp.ui.activity;
 
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-
+import com.numerus.numberapp.R;
 import com.numerus.numberapp.di.components.ActivityComponent;
 import com.numerus.numberapp.di.components.NumerusActivityComponent;
-import com.numerus.numberapp.ui.activity.base.SimpleActivity;
+import com.numerus.numberapp.ui.activity.base.TabbedActivity;
+import com.numerus.numberapp.ui.adapter.BaseTabAdapter;
+import com.numerus.numberapp.ui.adapter.NumerusTabAdapter;
+import com.numerus.numberapp.ui.helper.TabbedActivityFlavor;
 
-public class NumerusActivity extends SimpleActivity<NumerusActivityComponent> {
+public class NumerusActivity extends TabbedActivity<NumerusActivityComponent> {
+
+    public NumerusActivity() {
+        super(TabbedActivityFlavor
+                .basic(R.layout.activity_tab_fixed_with_viewpager)
+                .setTitleId(R.string.app_name));
+    }
 
     @Override
     protected NumerusActivityComponent createComponent(ActivityComponent activityComponent) {
@@ -17,14 +23,8 @@ public class NumerusActivity extends SimpleActivity<NumerusActivityComponent> {
         return component;
     }
 
-    @NonNull
     @Override
-    protected Fragment getFragment() {
-        return new Fragment();
-    }
-
-    @Override
-    protected void readBundle(@NonNull Bundle args) {
-
+    protected BaseTabAdapter createAdapter() {
+        return new NumerusTabAdapter(getSupportFragmentManager(), this);
     }
 }

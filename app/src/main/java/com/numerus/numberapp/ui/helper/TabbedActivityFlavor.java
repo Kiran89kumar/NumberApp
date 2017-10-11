@@ -3,6 +3,7 @@ package com.numerus.numberapp.ui.helper;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.view.ViewPager;
 
 /**
@@ -22,6 +23,10 @@ public class TabbedActivityFlavor extends ActivityFlavor {
         return tabbedActivityFlavor;
     }
 
+    public TabbedActivityFlavor setTitleId(@StringRes int titleId) {
+        super.setTitleId(titleId);
+        return this;
+    }
 
     protected TabbedActivityFlavor(@LayoutRes int layoutId) {
         super(layoutId);
