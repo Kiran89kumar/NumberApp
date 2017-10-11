@@ -1,4 +1,4 @@
-package com.numerus.numberapp.ui.activity;
+package com.numerus.numberapp.ui.activity.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
