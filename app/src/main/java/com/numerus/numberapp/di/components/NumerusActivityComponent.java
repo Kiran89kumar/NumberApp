@@ -3,6 +3,7 @@ package com.numerus.numberapp.di.components;
 import com.numerus.numberapp.di.PerActivity;
 import com.numerus.numberapp.di.modules.NumerusModule;
 import com.numerus.numberapp.ui.activity.NumerusActivity;
+import com.numerus.numberapp.ui.fragment.NumerusFragment;
 
 import dagger.Subcomponent;
 
@@ -15,5 +16,7 @@ import dagger.Subcomponent;
 public interface NumerusActivityComponent extends InjectableComponent{
 
     void inject(NumerusActivity numerusActivity);
+
+    void inject(NumerusFragment numerusFragment);
 
 }

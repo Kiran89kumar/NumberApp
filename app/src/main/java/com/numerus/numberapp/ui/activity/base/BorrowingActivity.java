@@ -30,24 +30,15 @@ public abstract class BorrowingActivity<F extends ActivityFlavor, C extends Inje
         super.onCreate(savedInstanceState);
         setContentView(flavor.getLayoutId());
         unbinder = ButterKnife.bind(this);
-        initActivity(savedInstanceState);
+        initActivity();
     }
 
-    private void initActivity(Bundle savedInstanceState) {
+    private void initActivity() {
         Bundle args = getIntent().getExtras();
         if (args != null) {
             readBundle(args);
         }
-        if (toolbar != null) {
-            setUpToolbar(toolbar);
-        }
         enhanceLayout();
-    }
-
-    public void setUpToolbar(@NonNull Toolbar toolbar) {
-        this.toolbar = toolbar;
-        toolbar.setTitle(flavor.getTitle(this));
-        setSupportActionBar(toolbar);
     }
 
     @CallSuper
@@ -69,10 +60,6 @@ public abstract class BorrowingActivity<F extends ActivityFlavor, C extends Inje
     }
 
     protected final String TAG = getClass().getSimpleName();
-
-    @Nullable // Since for some activities it is from fragment TODO
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
 
     private Unbinder unbinder;
     private final F flavor;

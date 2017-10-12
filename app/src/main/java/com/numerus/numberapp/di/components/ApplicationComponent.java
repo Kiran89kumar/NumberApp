@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.numerus.numberapp.di.modules.ActivityModule;
 import com.numerus.numberapp.di.modules.ApplicationModule;
+import com.numerus.numberapp.di.modules.NetworkModule;
 
 import javax.inject.Singleton;
 
@@ -14,7 +15,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = ApplicationModule.class)
+@Component(modules = {ApplicationModule.class, NetworkModule.class})
 public interface ApplicationComponent {
 
     Context context();
