@@ -2,22 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:paddingTop="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    android:orientation="vertical">
 
     <TextView
-        style="@style/Base.TextAppearance.AppCompat.Body1"
+        style="@style/Base.TextAppearance.AppCompat.Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingBottom="4dp"
         android:text="@string/category" />
 
-    <Spinner
-        android:id="@+id/spn"
-        android:layout_width="match_parent"
-        android:paddingLeft="8dp"
-        android:layout_height="wrap_content"/>
+    <RadioGroup
+        android:id="@+id/rg_cat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="4dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_cat1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="8dp"
+            android:text="@string/trivia" />
+
+        <RadioButton
+            android:id="@+id/rb_cat2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="8dp"
+            android:text="@string/math" />
+
+        <RadioButton
+            android:id="@+id/rb_cat3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="8dp"
+            android:text="@string/date" />
+
+        <RadioButton
+            android:id="@+id/rb_cat4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="8dp"
+            android:text="@string/year" />
+
+    </RadioGroup>
 
 </LinearLayout>

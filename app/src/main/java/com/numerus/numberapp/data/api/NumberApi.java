@@ -13,10 +13,8 @@ import rx.Observable;
 
 public interface NumberApi {
 
-    @GET("random/{category}")
-    Observable<ResponseBody> getRandomCategory(@Path(value = "category", encoded = true) String category);
+    @GET("{path}/{category}")
+    Observable<ResponseBody> getFats(@Path(value = "path", encoded = true) String path,
+                                     @Path(value = "category", encoded = true) String category);
 
-    @GET("{digitOrDate}/{category}")
-    Observable<Response<String>> getDigitOrDateCategory(@Path(value = "digitOrDate", encoded = true) String digitOrDate,
-                                                  @Path(value = "category", encoded = true) String category);
 }

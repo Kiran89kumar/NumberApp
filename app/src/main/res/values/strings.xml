@@ -4,10 +4,15 @@
     <string name="random">Basic</string>
     <string name="advanced">Advanced</string>
     <string name="search">Search</string>
-    <string name="heading">Explore the facts about Numbers.</string>
+    <string name="heading">Explore the facts about Numbers!</string>
     <string name="category">Category:</string>
     <string name="enter_year">Enter Year:</string>
     <string name="enter_number">Enter Number:</string>
     <string name="pick_date">Pick Date(Day and Month):</string>
     <string name="hint_date">01/12</string>
+    <string name="trivia">Trivia</string>
+    <string name="math">Math</string>
+    <string name="date">Date</string>
+    <string name="year">Year</string>
+    <string name="get_fats">Get Fatcs</string>
 </resources>
