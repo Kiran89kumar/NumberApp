@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
@@ -17,7 +17,8 @@
         android:id="@+id/edt_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="none"
+        android:maxLines="1"
+        android:inputType="date"
         android:hint="@string/hint_date"/>
 
 </LinearLayout>

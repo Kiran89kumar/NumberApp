@@ -17,6 +17,9 @@
     <EditText
         android:id="@+id/edt_numyear"
         android:layout_width="match_parent"
+        android:digits="0123456789"
+        android:inputType="number"
+        android:maxLines="1"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

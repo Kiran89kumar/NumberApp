@@ -53,6 +53,7 @@ public class NumerusPresenter implements IPresenter{
                     public void onError(Throwable e) {
                         Log.d("Presenter", "Error occured :"+e.getMessage());
                         numerusView.showError(e.getMessage());
+                        numerusView.hideLoading();
                     }
 
                     @Override
