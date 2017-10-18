@@ -1,5 +1,6 @@
 package com.numerus.numberapp.ui.fragment;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -21,6 +24,9 @@ import com.numerus.numberapp.di.components.NumerusActivityComponent;
 import com.numerus.numberapp.mvp.presenter.NumerusPresenter;
 import com.numerus.numberapp.mvp.view.NumerusView;
 import com.numerus.numberapp.ui.fragment.base.BaseFragment;
+
+import java.util.Calendar;
+
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +38,7 @@ import butterknife.Unbinder;
  * Created by kiran.kumar on 10/12/17.
  */
 
-public class NumerusFragment extends BaseFragment implements NumerusView{
+public class NumerusFragment extends BaseFragment implements NumerusView, DatePickerDialog.OnDateSetListener{
     public NumerusFragment() {
         // Required empty public constructor
     }
@@ -55,6 +61,8 @@ public class NumerusFragment extends BaseFragment implements NumerusView{
         View view = inflater.inflate(R.layout.fragment_numerus, container, false);
         unbinder = ButterKnife.bind(this,view);
         setHasOptionsMenu(true);
+        edtTxtDate.setFocusable(false);
+        edtTxtDate.setKeyListener(null);
         return view;
     }
 
@@ -144,8 +152,46 @@ public class NumerusFragment extends BaseFragment implements NumerusView{
         if(isBasic){
             presenter.getFacts("random",category);
         } else {
-            presenter.getFacts("random",category);
+            String data;
+            switch (category){
+                case "date":
+                    data = edtTxtDate.getText().toString();
+                    break;
+                default:
+                    data = edtTxtNumber.getText().toString();
+                    break;
+            }
+            presenter.getFacts(data,category);
         }
+    }
+
+    @OnClick(R.id.edt_date)
+    void onDatePickerClicked(View view){
+        Calendar calendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(view.getContext(),
+                this, calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)){
+            @Override
+            protected void onCreate(Bundle savedInstanceState) {
+                super.onCreate(savedInstanceState);
+                int year = getContext().getResources().getIdentifier(
+                        "android:id/year", null, null);
+                if (year != 0) {
+                    View yearPicker = findViewById(year);
+                    if (yearPicker != null) {
+                        yearPicker.setVisibility(View.GONE);
+                    }
+                }
+            }
+        };
+        datePickerDialog.show();
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        String date = (month+1) +"/" + dayOfMonth;
+        edtTxtDate.setText(date);
     }
 
     @Override
@@ -197,6 +243,8 @@ public class NumerusFragment extends BaseFragment implements NumerusView{
         datePickerView.setVisibility(!isDigit ? View.VISIBLE : View.GONE);
     }
 
+
+
     @Override
     public void clearFacts() {
         txtFacts.setText("");
@@ -234,6 +282,13 @@ public class NumerusFragment extends BaseFragment implements NumerusView{
 
     @BindView(R.id.txt_enter_num)
     TextView txtEnterNum;
+
+    @BindView(R.id.edt_numyear)
+    EditText edtTxtNumber;
+
+    @BindView(R.id.edt_date)
+    EditText edtTxtDate;
+
 
     @Inject
     NumerusPresenter presenter;
