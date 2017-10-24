@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:buttonStyle">@style/BrandButtonStyle</item>
+        <item name="buttonStyle">@style/BrandButtonStyle</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
@@ -24,6 +26,11 @@
         <item name="android:layout_centerInParent">true</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="BrandButtonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>
