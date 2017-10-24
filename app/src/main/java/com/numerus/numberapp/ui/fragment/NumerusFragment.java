@@ -3,6 +3,7 @@ package com.numerus.numberapp.ui.fragment;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -142,7 +143,7 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
 
             if(!isBasic){
                 toggleDigitOrDatePicker(isDigit);
-                setTextValue(txtEnterNum, textValue);
+                txtEnterNum.setHint(textValue);
             }
         }
     }
@@ -280,10 +281,10 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
     @BindView(R.id.txt_result)
     TextView txtFacts;
 
-    @BindView(R.id.txt_enter_num)
-    TextView txtEnterNum;
+    @BindView(R.id.til_num_picker)
+    TextInputLayout txtEnterNum;
 
-    @BindView(R.id.edt_numyear)
+    @BindView(R.id.edt_num)
     EditText edtTxtNumber;
 
     @BindView(R.id.edt_date)
