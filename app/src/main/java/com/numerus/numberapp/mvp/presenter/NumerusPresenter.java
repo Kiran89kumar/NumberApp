@@ -1,5 +1,6 @@
 package com.numerus.numberapp.mvp.presenter;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.numerus.numberapp.data.api.NumberApi;
@@ -39,6 +40,12 @@ public class NumerusPresenter implements IPresenter{
 
     public void getFacts(String data, String category){
         Log.d("Presenter","Get facts: "+data+"---"+category);
+        if(TextUtils.isEmpty(data)){
+            Log.d("Presenter","Show Error View");
+            numerusView.showError("Please enter value for search!");
+            return;
+        }
+
         numerusView.showLoading();
         Observable<ResponseBody> factsObservable = numberApi.getFats(data,category);
         Subscription subscription = factsObservable.subscribeOn(Schedulers.io())
@@ -87,6 +94,10 @@ public class NumerusPresenter implements IPresenter{
             subscriptions.unsubscribe();
             subscriptions = null;
         }
+    }
+
+    public boolean validateFeedback() {
+        return true;
     }
 
     private CompositeSubscription subscriptions = new CompositeSubscription();

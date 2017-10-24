@@ -1,16 +1,22 @@
 package com.numerus.numberapp.ui.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -33,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import butterknife.Unbinder;
 
 /**
@@ -64,7 +71,52 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
         setHasOptionsMenu(true);
         edtTxtDate.setFocusable(false);
         edtTxtDate.setKeyListener(null);
+        initViews();
         return view;
+    }
+
+    private void initViews(){
+        edtTxtNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() != 0){
+                    button.setEnabled(true);
+                } else {
+                    button.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        edtTxtDate.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(s.length() != 0){
+                    button.setEnabled(true);
+                } else {
+                    button.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     @Override
@@ -107,8 +159,11 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
                 case R.id.rb2:
                     isBasic = false;
                     toggleBasicOrAdvaceView(isBasic);
+                    edtTxtNumber.setText("");
+                    edtTxtDate.setText("");
                     break;
             }
+            clearFacts();
         }
     }
 
@@ -143,8 +198,11 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
 
             if(!isBasic){
                 toggleDigitOrDatePicker(isDigit);
-                txtEnterNum.setHint(textValue);
+                tilNumPicker.setHint(textValue);
+                edtTxtNumber.setText("");
+                edtTxtDate.setText("");
             }
+            clearFacts();
         }
     }
 
@@ -163,6 +221,12 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
                     break;
             }
             presenter.getFacts(data,category);
+        }
+
+        try {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+        } catch (Exception e) {
         }
     }
 
@@ -208,10 +272,6 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
         }
     }
 
-    private void setTextValue(TextView textView, String value){
-        textView.setText(value);
-    }
-
     @Override
     public void showLoading() {
         rlProgress.setVisibility(View.VISIBLE);
@@ -225,7 +285,9 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
 
     @Override
     public void showError(String message) {
-
+        Snackbar snackbar = Snackbar
+                .make(container, message, Snackbar.LENGTH_LONG);
+        snackbar.show();
     }
 
     @Override
@@ -236,6 +298,7 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
         }else {
             toggleDigitOrDatePicker(true);
         }
+        button.setEnabled(isBasic);
     }
 
     @Override
@@ -243,8 +306,6 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
         numberPickerView.setVisibility(isDigit ? View.VISIBLE: View.GONE);
         datePickerView.setVisibility(!isDigit ? View.VISIBLE : View.GONE);
     }
-
-
 
     @Override
     public void clearFacts() {
@@ -262,6 +323,21 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
         super.onStop();
         presenter.destroy();
     }
+
+    /*
+
+    @OnTextChanged({R.id.edt_num, R.id.edt_date})
+    public void onNumberChangedListener(EditText editText){
+        String data = editText.getText().toString();
+        if(TextUtils.isEmpty(data)){
+            btnGetFacts.setEnabled(false);
+        } else {
+            btnGetFacts.setEnabled(true);
+        }
+    }*/
+
+    @BindView(R.id.cons_content)
+    ConstraintLayout container;
 
     @BindView(R.id.rb1)
     RadioButton rb1;
@@ -282,14 +358,16 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
     TextView txtFacts;
 
     @BindView(R.id.til_num_picker)
-    TextInputLayout txtEnterNum;
+    TextInputLayout tilNumPicker;
+
+    @BindView(R.id.til_date_picker)
+    TextInputLayout tilDatePicker;
 
     @BindView(R.id.edt_num)
     EditText edtTxtNumber;
 
     @BindView(R.id.edt_date)
     EditText edtTxtDate;
-
 
     @Inject
     NumerusPresenter presenter;
