@@ -2,11 +2,13 @@ package com.numerus.numberapp.ui.fragment;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.ShareCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,6 +16,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -31,6 +34,7 @@ import com.numerus.numberapp.di.components.NumerusActivityComponent;
 import com.numerus.numberapp.mvp.presenter.NumerusPresenter;
 import com.numerus.numberapp.mvp.view.NumerusView;
 import com.numerus.numberapp.ui.fragment.base.BaseFragment;
+import com.numerus.numberapp.util.Constant;
 
 import java.util.Calendar;
 
@@ -136,7 +140,29 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.numerus, menu);
+        shareMenuItem = menu.getItem(0);
+        shareMenuItem.setVisible(!TextUtils.isEmpty(txtFacts.getText()));
         super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                shareFacts();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void shareFacts() {
+        if(!TextUtils.isEmpty(txtFacts.getText())){
+            ShareCompat.IntentBuilder shareIntent = ShareCompat.IntentBuilder.from(getActivity());
+            shareIntent.setType("text/plain")
+                    .setSubject("Interesting Facts about Number")
+                    .setText(txtFacts.getText());
+            startActivity(Intent.createChooser(shareIntent.getIntent(), getString(R.string.app_name)));
+        }
     }
 
     @Override
@@ -169,7 +195,6 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
 
     @OnCheckedChanged({R.id.rb_cat1, R.id.rb_cat2, R.id.rb_cat3, R.id.rb_cat4})
     public void onCategorySelected(CompoundButton button, boolean checked){
-        Log.d(TAG,"Categiry Seleced:");
         String textValue = "";
         boolean isDigit = false;
         if(checked){
@@ -269,6 +294,7 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
     public void render(String facts) {
         if(!TextUtils.isEmpty(facts)){
             txtFacts.setText(facts);
+            getActivity().invalidateOptionsMenu();
         }
     }
 
@@ -310,6 +336,7 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
     @Override
     public void clearFacts() {
         txtFacts.setText("");
+        getActivity().supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -323,18 +350,6 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
         super.onStop();
         presenter.destroy();
     }
-
-    /*
-
-    @OnTextChanged({R.id.edt_num, R.id.edt_date})
-    public void onNumberChangedListener(EditText editText){
-        String data = editText.getText().toString();
-        if(TextUtils.isEmpty(data)){
-            btnGetFacts.setEnabled(false);
-        } else {
-            btnGetFacts.setEnabled(true);
-        }
-    }*/
 
     @BindView(R.id.cons_content)
     ConstraintLayout container;
@@ -374,6 +389,8 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
 
     @BindView(R.id.rl_progress)
     RelativeLayout rlProgress;
+
+    private MenuItem shareMenuItem;
 
     private String category;
     private boolean isBasic;

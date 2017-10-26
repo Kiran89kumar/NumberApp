@@ -39,9 +39,8 @@ public class NumerusPresenter implements IPresenter{
     }
 
     public void getFacts(String data, String category){
-        Log.d("Presenter","Get facts: "+data+"---"+category);
         if(TextUtils.isEmpty(data)){
-            Log.d("Presenter","Show Error View");
+            Log.d(TAG,"Show Error View");
             numerusView.showError("Please enter value for search!");
             return;
         }
@@ -58,7 +57,7 @@ public class NumerusPresenter implements IPresenter{
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.d("Presenter", "Error occured :"+e.getMessage());
+                        Log.d(TAG,"Error occured :"+e.getMessage());
                         numerusView.showError(e.getMessage());
                         numerusView.hideLoading();
                     }
@@ -96,11 +95,8 @@ public class NumerusPresenter implements IPresenter{
         }
     }
 
-    public boolean validateFeedback() {
-        return true;
-    }
-
     private CompositeSubscription subscriptions = new CompositeSubscription();
     private NumberApi numberApi;
     private NumerusView numerusView;
+    private static final String TAG = NumerusPresenter.class.getSimpleName();
 }
