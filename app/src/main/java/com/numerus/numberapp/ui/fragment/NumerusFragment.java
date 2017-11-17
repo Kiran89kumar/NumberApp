@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.numerus.numberapp.R;
 import com.numerus.numberapp.di.components.NumerusActivityComponent;
+import com.numerus.numberapp.di.modules.NumerusModule;
 import com.numerus.numberapp.mvp.presenter.NumerusPresenter;
 import com.numerus.numberapp.mvp.view.NumerusView;
 import com.numerus.numberapp.ui.fragment.base.BaseFragment;
@@ -134,7 +135,7 @@ public class NumerusFragment extends BaseFragment implements NumerusView, DatePi
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getComponent(NumerusActivityComponent.class).inject(this);
+        getComponent(NumerusActivityComponent.class).plus(new NumerusModule()).inject(this);
     }
 
     @Override

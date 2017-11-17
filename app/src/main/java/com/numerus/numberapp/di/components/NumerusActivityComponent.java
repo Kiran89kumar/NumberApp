@@ -12,11 +12,10 @@ import dagger.Subcomponent;
  */
 
 @PerActivity
-@Subcomponent(modules = NumerusModule.class)
+@Subcomponent
 public interface NumerusActivityComponent extends InjectableComponent{
 
     void inject(NumerusActivity numerusActivity);
 
-    void inject(NumerusFragment numerusFragment);
-
+    NumerusComponent plus(NumerusModule numerusModule);
 }
