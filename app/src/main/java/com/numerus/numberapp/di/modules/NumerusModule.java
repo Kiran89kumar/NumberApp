@@ -2,6 +2,7 @@ package com.numerus.numberapp.di.modules;
 
 import com.numerus.numberapp.data.api.NumberApi;
 import com.numerus.numberapp.di.PerActivity;
+import com.numerus.numberapp.di.PerFragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -19,7 +20,7 @@ import static com.numerus.numberapp.util.Constant.BASE_URL;
 public class NumerusModule {
 
     @Provides
-    @PerActivity
+    @PerFragment
     NumberApi providesRestNumberApi(OkHttpClient client){
         Retrofit retrofit = new Retrofit.Builder()
                 .client(client)

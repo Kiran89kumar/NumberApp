@@ -8,13 +8,14 @@ import com.numerus.numberapp.di.components.NumerusActivityComponent;
 import com.numerus.numberapp.ui.activity.base.SimpleActivity;
 import com.numerus.numberapp.ui.fragment.NumerusFragment;
 
-public class NumerusActivity extends SimpleActivity<NumerusActivityComponent> {
+public class NumerusActivity extends SimpleActivity<ActivityComponent> {
 
     @Override
-    protected NumerusActivityComponent createComponent(ActivityComponent activityComponent) {
-        NumerusActivityComponent component = activityComponent.plus();
-        component.inject(this);
-        return component;
+    protected ActivityComponent createComponent(ActivityComponent activityComponent) {
+        /*NumerusActivityComponent component = activityComponent.plus();
+        component.inject(this);*/
+        activityComponent.inject(this);
+        return activityComponent;
     }
 
     @NonNull

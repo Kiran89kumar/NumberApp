@@ -6,7 +6,7 @@ ext{
     androidCompileSdkVersion = 25
 
     def libver = [
-            dagger              : '2.7',
+            dagger              : '2.8',
             javaxAnnotation     : '1.0',
             picasso             : '2.5.2',
             picassoOkHttp3      : '1.1.0',

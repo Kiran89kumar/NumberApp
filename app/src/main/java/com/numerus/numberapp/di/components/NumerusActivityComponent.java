@@ -15,7 +15,5 @@ import dagger.Subcomponent;
 @Subcomponent
 public interface NumerusActivityComponent extends InjectableComponent{
 
-    void inject(NumerusActivity numerusActivity);
 
-    NumerusComponent plus(NumerusModule numerusModule);
 }
